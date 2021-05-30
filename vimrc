@@ -115,3 +115,10 @@ set smartcase       " ...unless we type a capital
 
 " ================ Custom Settings ========================
 so ~/.yadr/vim/settings.vim
+
+
+
+
+" setting terminal
+" nnoremap <C-t><C-r> :below term<Space>++rows=10<Space>zsh<CR>
+" command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
