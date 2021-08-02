@@ -2,17 +2,31 @@ require 'rake'
 require 'fileutils'
 require File.join(File.dirname(__FILE__), 'bin', 'yadr', 'vundle')
 
-desc "Hook our dotfiles into system-standard positions."
 task :install => [:submodule_init, :submodules] do
   puts
   puts "======================================================"
   puts "Welcome to YADR Installation."
   puts "======================================================"
   puts
+  Rake::Task["brew_rvm_setup"].execute
+  Rake::Task["hook_dotfiles"].execute
+  Rake::Task["install_vim"].execute
+  Rake::Task["install_prezto"].execute
+  Rake::Task["install_fonts_theme"].execute
+end
 
+task :test do 
+  test
+end
+
+desc "brew & rvm setup"
+task :brew_rvm_setup => [:submodule_init, :submodules] do
   install_homebrew if RUBY_PLATFORM.downcase.include?("darwin")
   install_rvm_binstubs
+end
 
+desc "Hook our dotfiles into system-standard positions."
+task :hook_dotfiles => [:submodule_init, :submodules] do
   # this has all the runcoms from this directory.
   install_files(Dir.glob('git/*')) if want_to_install?('git configs (color, aliases)')
   install_files(Dir.glob('irb/*')) if want_to_install?('irb/pry configs (more colorful)')
@@ -20,26 +34,26 @@ task :install => [:submodule_init, :submodules] do
   install_files(Dir.glob('ctags/*')) if want_to_install?('ctags config (better js/ruby support)')
   install_files(Dir.glob('tmux/*')) if want_to_install?('tmux config')
   install_files(Dir.glob('vimify/*')) if want_to_install?('vimification of command line tools')
+  success_msg("hooked dotfiles")
+end
+
+task :install_vim do
   if want_to_install?('vim configuration (highly recommended)')
     install_files(Dir.glob('{vim,vimrc}'))
     Rake::Task["install_vundle"].execute
   end
-
-  Rake::Task["install_prezto"].execute
-
-  install_fonts
-
-  install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
-
-  run_bundle_config
-
-  success_msg("installed")
 end
 
 task :install_prezto do
   if want_to_install?('zsh enhancements & prezto')
     install_prezto
   end
+end
+
+task :install_fonts_theme do
+  install_fonts
+  install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
+  run_bundle_config
 end
 
 desc 'Updates the installation'
@@ -64,7 +78,6 @@ task :submodules do
     puts "======================================================"
 
     run %{
-      cd $HOME/.yadr
       git submodule update --recursive
       git clean -df
     }
@@ -103,7 +116,6 @@ task :install_vundle do
   vundle_path = File.join('vim','bundle', 'vundle')
   unless File.exists?(vundle_path)
     run %{
-      cd $HOME/.yadr
       git clone https://github.com/gmarik/vundle.git #{vundle_path}
     }
   end
@@ -182,8 +194,8 @@ def install_fonts
   puts "======================================================"
   puts "Installing patched fonts for Powerline/Lightline."
   puts "======================================================"
-  run %{ cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
-  run %{ mkdir -p ~/.fonts && cp ~/.yadr/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
+  run %{ cp -f #{ENV["PWD"]}/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
+  run %{ mkdir -p ~/.fonts && cp #{ENV["PWD"]}/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
   puts
 end
 
@@ -255,11 +267,17 @@ def ask(message, values)
   values[selection]
 end
 
+def test
+  File.open(ENV["HOME"] + "/.zshrc", mode = "a"){|f|
+    f.write("for config_file (" + ENV["PWD"] + "/zsh/*.zsh) source $config_file")
+  }
+end
+
 def install_prezto
   puts
   puts "Installing Prezto (ZSH Enhancements)..."
 
-  run %{ ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
+  run %{ ln -nfs "#{ENV["PWD"]}/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
 
   # The prezto runcoms are only going to be installed if zprezto has never been installed
   install_files(Dir.glob('zsh/prezto-override/zshrc'), :symlink)
@@ -271,9 +289,9 @@ def install_prezto
 
   puts
   puts "Creating directories for your customizations"
-  run %{ mkdir -p $HOME/.zsh.before }
-  run %{ mkdir -p $HOME/.zsh.after }
-  run %{ mkdir -p $HOME/.zsh.prompts }
+  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.before $HOME/.zsh.before }
+  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.after $HOME/.zsh.after }
+  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.prompts $HOME/.zsh.prompts }
 
   if "#{ENV['SHELL']}".include? 'zsh' then
     puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"

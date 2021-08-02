@@ -1,3 +1,5 @@
+# Yet Another Dotfile Repo
+
      _     _           _
     | |   | |         | |
     | |___| |_____  __| | ____
@@ -175,15 +177,17 @@ included below. This is not a comprehensive list. To get deeper knowledge,
 practice a few of these every day, and then start looking into the lists
 of plugins above to learn more.
 
-#### Navigation
+<details>
+<summary>Navigation</summary>
 
  * `,z` - go to previous buffer (:bp)
  * `,x` - go to next buffer (:bn)
  * `Cmd-j` and `Cmd-k` to move up and down roughly by functions (`Alt` in Linux)
  * `Ctrl-o` - Old cursor position - this is a standard mapping but very useful, so included here
  * `Ctrl-i` - opposite of Ctrl-O (again, this is standard)
-
-#### Search/Code Navigation
+</details>
+<details>
+<summary>Search/Code Navigation</summary>
 
  * `,f` - instantly Find definition of class (must have exuberant ctags installed)
  * `,F` - same as `,f` but in a vertical split
@@ -203,9 +207,10 @@ of plugins above to learn more.
  * `gK` - Opens the documentation for the word under the cursor.
  * Spacebar - Sneak - type two characters to move there in a line. Kind of like vim's `f` but more accurate.
  * `:Gsearch foo` - global search, then do your normal `%s/search/replace/g` and follow up with `:Greplace` to replace across all files. When done use `:wall` to write all the files.
+</details>
 
-
-#### File Navigation
+<details>
+<summary>File Navigation</summary>
 
  * `,t` - CtrlP fuzzy file selector
  * `,b` - CtrlP buffer selector - great for jumping to a file you already have open
@@ -214,16 +219,19 @@ of plugins above to learn more.
  * `Cmd-Shift-N` - NERDTree toggle (`Alt` in Linux)
  * `Ctrl-\` - Show current file in NERDTree
  * `Cmd-Shift-P` - Clear CtrlP cache
+</details>
 
-#### Better keystrokes for common editing commands
+<details>
+<summary>Better keystrokes for common editing commands</summary>
 
  * Ctrl-Space to autocomplete. Tab for snipmate snippets.
  * `,#` `,"` `,'` `,]` `,)` `,}` to surround a word in these common wrappers. the # does #{ruby interpolation}. works in visual mode (thanks @cj). Normally these are done with something like `ysw#`
  * `Cmd-'`, `Cmd-"`, `Cmd-]`, `Cmd-)`, etc to change content inside those surrounding marks. You don't have to be inside them (`Alt` in Linux)
  * `,.` to go to last edit location (same as `'.`) because the apostrophe is hard on the pinky
  * `,ci` to change inside any set of quotes/brackets/etc
-
-#### Tabs, Windows, Splits
+</details>
+<details>
+<summary>Tabs, Windows, Splits</summary>
 
  * Use `Cmd-1` thru `Cmd-9` to switch to a specific tab number (like iTerm and Chrome) - and tabs have been set up to show numbers (`Alt` in Linux)
  * `Ctrl-h,l,j,k` - to move left, right, down, up between splits. This also works between vim and tmux splits thanks to `vim-tmux-navigator`.
@@ -232,8 +240,10 @@ of plugins above to learn more.
  * `ss` - horizontal split (`Ctrl-w,s`)
  * `,qo` - open quickfix window (this is where output from Grep goes)
  * `,qc` - close quickfix
+</details>
 
-#### Utility
+<details>
+<summary>Utility</summary>
 
  * `Ctrl-p` after pasting - Use `p` to paste and `Ctrl-p` to cycle through previous pastes. Provided by YankRing.
  * `,yr` - view the yankring - a list of your previous copy commands. also you can paste and hit `ctrl-p` for cycling through previous copy commands
@@ -259,8 +269,10 @@ of plugins above to learn more.
  * `:Wrap` - wrap long lines (e.g. when editing markdown files)
  * `Cmd-/` - toggle comments (usually gcc from tComment) (`Alt` in Linux)
  * `gcp` (comment a paragraph)
+</details>
 
-#### Rails & Ruby
+<details>
+<summary>Rails & Ruby</summary>
 
  * `,vv` and `,cc` to switch between view and controller - these are maps to :Rcontroller and :Rview. Explore the :R<Tab> family of commands for more fun from rails.vim!
  * `,rs` and `,rl` to run rspec or a spec line in iTerm (check iTerm window for results)
@@ -270,11 +282,14 @@ of plugins above to learn more.
  * `:Bopen [gem name]` to navigate to a gem (@tpope/vim-bundler)
  * `,gcp` - Grep Current Partial to find references to the current view partial
  * `,orb` - outer ruby block. takes you one level up from nested blocks (great for rspec)
+</details>
 
-#### Vim Dev
+<details>
+<summary>Vim Dev</summary>
 
  * `,vc` - (Vim Command) copies the command under your cursor and executes it in vim. Great for testing single line changes to vimrc.
  * `,vr` - (Vim Reload) source current file as a vim file
+</details>
 
 ## Extending and overriding YADR settings
 

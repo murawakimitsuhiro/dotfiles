@@ -1,3 +1,5 @@
 source $HOME/.zprezto/runcoms/zshrc
 
-for config_file ($HOME/.yadr/zsh/*.zsh) source $config_file
+export $HOGE_PATH="$HOME"
+export $YADR_PATH="$HOME/src/github.com/murawakimitsuhiro/dotfiles"
+for config_file ($YADR_PATH/zsh/*.zsh) source $config_file
