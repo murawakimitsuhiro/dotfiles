@@ -5,6 +5,6 @@
 #   fi
 # fi
 
-if [ "$(ls -A $YADR_PATH/zsh/user-extension/.zsh.after/)" ]; then
+if [ "$(ls -A $YADR_PATH/zsh/user-extension/.zsh.after/ | grep .zsh)" ]; then
     for config_file ($YADR_PATH/zsh/user-extension/.zsh.after/*.zsh) source $config_file
 fi
