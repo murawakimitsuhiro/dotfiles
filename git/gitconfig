@@ -113,7 +113,7 @@
 [core]
   autocrlf = false
   editor = vim
-  excludesfile = ~/.yadr/git/gitignore
+  excludesfile = $YADR_PATH/git/gitignore
 [advice]
   statusHints = false
 [diff]
@@ -135,3 +135,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[ghq]
+root = ~/src

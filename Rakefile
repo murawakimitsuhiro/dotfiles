@@ -184,7 +184,8 @@ def install_homebrew
   puts "======================================================"
   puts "Installing Homebrew packages...There may be some warnings."
   puts "======================================================"
-  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher ghi}
+  run %{brew install zsh ctags git ghq peco hub tmux reattach-to-user-namespace the_silver_searcher ghi}
+  run %{brew install direnv}
   run %{brew install macvim}
   puts
   puts
@@ -287,11 +288,11 @@ def install_prezto
   install_files(Dir.glob('zsh/prezto/runcoms/zprofile'), :symlink)
   install_files(Dir.glob('zsh/prezto/runcoms/zshenv'), :symlink)
 
-  puts
-  puts "Creating directories for your customizations"
-  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.before $HOME/.zsh.before }
-  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.after $HOME/.zsh.after }
-  run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.prompts $HOME/.zsh.prompts }
+  # puts
+  # puts "Creating directories for your customizations"
+  # run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.before $HOME/.zsh.before }
+  # run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.after $HOME/.zsh.after }
+  # run %{ ln -nfs #{ENV["PWD"]}/zsh-custom/.zsh.prompts $HOME/.zsh.prompts }
 
   if "#{ENV['SHELL']}".include? 'zsh' then
     puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"

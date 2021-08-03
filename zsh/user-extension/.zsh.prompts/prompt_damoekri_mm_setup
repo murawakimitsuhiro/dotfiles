@@ -1,0 +1,81 @@
+#
+# A simple theme inspired by the Sorin and PeepCode themes.
+#
+# Authors:
+#   Daniel Møller Kristensen <damoekri@icloud.com>
+#
+# Screenshots:
+#   http://i.imgur.com/AX9HnPF.png
+#
+
+# Load dependencies.
+pmodload 'helper'
+
+#function aws-prof {
+#  local profile="${AWS_PROFILE:=default}"
+#
+#  echo "%{$fg_bold[blue]%}aws:(%{$fg[yellow]%}${profile}%{$fg_bold[blue]%})%{$reset_color%} "
+#}
+
+function prompt_damoekri_mm_pwd {
+  local pwd="${PWD/#$HOME/~}"
+
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_damoekri_mm_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_damoekri_mm_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+  fi
+}
+
+function prompt_damoekri_mm_precmd {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+
+  # Format PWD.
+  prompt_damoekri_mm_pwd
+
+  # Get Git repository information.
+  if (( $+functions[git-info] )); then
+    git-info
+  fi
+
+  if (( $+functions[aws-prof] )); then
+    aws-prof
+  fi
+}
+
+function prompt_damoekri_mm_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+
+  # Add hook for calling git-info and ruby-info before each command.
+  add-zsh-hook precmd prompt_damoekri_mm_precmd
+
+  # Set editor-info parameters.
+  zstyle ':prezto:module:editor:info:keymap:primary' format ' %F{green}»%f'
+
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:action' format ':%F{magenta}%s%f'
+  zstyle ':prezto:module:git:info:branch' format '%F{blue}%b%f'
+  zstyle ':prezto:module:git:info:clean' format ' %F{green}✔%f'
+  zstyle ':prezto:module:git:info:dirty' format ' %F{red}✗%f'
+  zstyle ':prezto:module:git:info:commit' format '%F{blue}%.7c%f'
+  zstyle ':prezto:module:git:info:position' format '%F{blue}%p%f'
+  zstyle ':prezto:module:git:info:keys' format \
+    'rprompt' ' $(coalesce "%b" "%p" "%c")%s%C%D'
+
+  # Set ruby-info parameters.
+  # zstyle ':prezto:module:ruby:info:version' format ' %F{yellow}%v%f'
+
+  # Define prompts.
+  PROMPT='%F{cyan}${_prompt_damoekri_mm_pwd}${git_info:+${(e)git_info[rprompt]}}%f${editor_info[keymap]} '
+  RPROMPT=' '
+}
+
+prompt_damoekri_setup "$@"

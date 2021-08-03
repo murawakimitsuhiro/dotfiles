@@ -74,7 +74,7 @@ filetype plugin on
 filetype indent on
 
 " Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+" set list listchars=tab:\ \ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -118,7 +118,7 @@ set modelines=0
 set nomodeline
 
 " ================ Custom Settings ========================
-so ~/.yadr/vim/settings.vim
+so ~/src/github.com/murawakimitsuhiro/dotfiles/vim/settings.vim
 
 
 
