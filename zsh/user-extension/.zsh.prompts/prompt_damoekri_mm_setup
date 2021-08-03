@@ -1,14 +1,3 @@
-#
-# A simple theme inspired by the Sorin and PeepCode themes.
-#
-# Authors:
-#   Daniel Møller Kristensen <damoekri@icloud.com>
-#
-# Screenshots:
-#   http://i.imgur.com/AX9HnPF.png
-#
-
-# Load dependencies.
 pmodload 'helper'
 
 #function aws-prof {
@@ -32,17 +21,15 @@ function prompt_damoekri_mm_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
-  # Format PWD.
   prompt_damoekri_mm_pwd
 
-  # Get Git repository information.
   if (( $+functions[git-info] )); then
     git-info
   fi
 
-  if (( $+functions[aws-prof] )); then
-    aws-prof
-  fi
+  # if (( $+functions[aws-prof] )); then
+  #   aws-prof
+  # fi
 }
 
 function prompt_damoekri_mm_setup {
@@ -70,10 +57,6 @@ function prompt_damoekri_mm_setup {
   zstyle ':prezto:module:git:info:keys' format \
     'rprompt' ' $(coalesce "%b" "%p" "%c")%s%C%D'
 
-  # Set ruby-info parameters.
-  # zstyle ':prezto:module:ruby:info:version' format ' %F{yellow}%v%f'
-
-  # Define prompts.
   PROMPT='%F{cyan}${_prompt_damoekri_mm_pwd}${git_info:+${(e)git_info[rprompt]}}%f${editor_info[keymap]} '
   RPROMPT=' '
 }
