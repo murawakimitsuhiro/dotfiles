@@ -21,11 +21,11 @@ function prompt_damoekri_mm_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
-  # prompt_damoekri_mm_pwd
+  prompt_damoekri_mm_pwd
 
-  # if (( $+functions[git-info] )); then
-  #   git-info
-  # fi
+  if (( $+functions[git-info] )); then
+    git-info
+  fi
 
   # if (( $+functions[aws-prof] )); then
   #   aws-prof
