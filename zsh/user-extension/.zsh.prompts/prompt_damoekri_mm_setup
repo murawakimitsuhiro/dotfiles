@@ -26,10 +26,6 @@ function prompt_damoekri_mm_precmd {
   if (( $+functions[git-info] )); then
     git-info
   fi
-
-  # if (( $+functions[aws-prof] )); then
-  #   aws-prof
-  # fi
 }
 
 function prompt_damoekri_mm_setup {
