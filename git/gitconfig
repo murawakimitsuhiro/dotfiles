@@ -137,3 +137,5 @@
 	required = true
 [ghq]
 root = ~/src
+[init]
+	defaultBranch = main
