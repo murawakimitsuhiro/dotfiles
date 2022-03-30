@@ -6,3 +6,10 @@ alias decless='(){openssl smime -decrypt -binary -in $1 -inform DER -inkey ~/.Pr
 
 # relogin
 alias relogin='exec $SHELL -l'
+
+# inteliJ系を開く
+alias webstorm='open ./ -a WebStorm'
+alias pycharm='open ./ -a PyCharm\ Professional'
+alias goland='open ./ -a GoLand'
+
+
