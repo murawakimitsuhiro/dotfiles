@@ -1,1 +1,1 @@
-echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
+eval "$(pyenv init --path)"
