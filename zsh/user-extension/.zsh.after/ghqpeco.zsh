@@ -1,7 +1,7 @@
 
 # ghq + peco
-alias g='cd $(ghq root)/$(ghq list | peco)'
-alias gopen='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+alias g='cd $(ghq root)/$(ghq list | grep -v "_tmp" | peco)'
+alias gopen='hub browse $(ghq list | grep -v "_tmp" | peco | cut -d "/" -f 2,3)'
 
 # github repository create
 ghcr() {
