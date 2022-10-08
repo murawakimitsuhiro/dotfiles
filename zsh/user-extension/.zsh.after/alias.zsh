@@ -12,4 +12,7 @@ alias webstorm='open ./ -a WebStorm'
 alias pycharm='open ./ -a PyCharm\ Professional'
 alias goland='open ./ -a GoLand'
 
+# awsp
+alias awsp="source _awsp"
+
 
